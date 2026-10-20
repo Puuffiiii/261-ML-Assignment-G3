@@ -125,19 +125,28 @@ Cross-validation will also be used to evaluate model stability.
 │
 ├── notebooks/
 │   ├── README.md
-│   └── 01_eda_exploration.ipynb  # Comprehensive EDA Colab notebook (7 feature groups)
+│   ├── 01_eda_exploration.ipynb        # Comprehensive EDA Colab notebook (7 feature groups)
+│   └── 02_preprocessing_pipeline.ipynb # Complete Preprocessing Pipeline (Scaling, MNAR, PCA, .npy export)
 │
 ├── modules/
 │   ├── __init__.py
 │   ├── README.md
-│   └── eda_viz.py                # EDA visualization & statistical analysis functions
+│   ├── eda_viz.py                      # EDA visualization & statistical analysis functions
+│   └── preprocessing.py                # TabularPreprocessor, encoding, scaling, PCA & .npy persistence
 │
 ├── reports/
 │   ├── README.md
-│   └── figures/                  # 17 high-resolution analysis figures (300 DPI)
+│   └── figures/                        # 17 high-resolution analysis figures (300 DPI)
 │
 ├── features/
-│   └── README.md
+│   ├── README.md                       # Exported features documentation & loading guide
+│   ├── X_train_std.npy, X_test_std.npy # StandardScaler features
+│   ├── X_train_minmax.npy, ...         # MinMaxScaler features
+│   ├── X_train_pca90.npy, ...          # PCA 90% variance features
+│   ├── X_train_pca95.npy, ...          # PCA 95% variance features
+│   ├── y_train.npy, y_test.npy         # Stratified target labels
+│   ├── feature_names.json              # 32 encoded feature names & PCA components
+│   └── metadata.json                   # Pipeline configuration & split metrics
 │
 ├── evidence/
 │   └── README.md
@@ -247,6 +256,9 @@ reports/ML_Assignment_Report.pdf
 - **EDA Notebook (1-click Colab):**  
   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Puuffiiii/261-ML-Assignment-G3/blob/EDA-step/notebooks/01_eda_exploration.ipynb)
 
+- **Preprocessing Pipeline Notebook (1-click Colab):**  
+  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Puuffiiii/261-ML-Assignment-G3/blob/feature/preprocessing/notebooks/02_preprocessing_pipeline.ipynb)
+
 ---
 
 ## 15. Key EDA Findings & Preprocessing Recommendations
@@ -267,7 +279,8 @@ The exploratory analysis performed in `notebooks/01_eda_exploration.ipynb` provi
 - [x] Initial project structure created
 - [x] Dataset finalized (`aug_train.csv` - 19,158 samples)
 - [x] EDA completed (`notebooks/01_eda_exploration.ipynb` with 17 publication-quality charts & MNAR / PCA findings)
-- [ ] Preprocessing pipeline completed
+- [x] Preprocessing pipeline completed (`modules/preprocessing.py` & `notebooks/02_preprocessing_pipeline.ipynb`)
+- [x] Preprocessing Colab Run All test passed (all cells execution verified & 13 feature files exported to `features/`)
 - [ ] Traditional ML models completed
 - [ ] Hyperparameter tuning completed
 - [ ] Final evaluation completed

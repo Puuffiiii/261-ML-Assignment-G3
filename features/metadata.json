@@ -1,0 +1,12 @@
+{
+  "dataset": "aug_train.csv",
+  "total_samples": 19158,
+  "train_samples": 15326,
+  "test_samples": 3832,
+  "random_state": 42,
+  "configurations": {
+    "standard_scaled_features": 32,
+    "pca_90_components": 21,
+    "pca_95_components": 23
+  }
+}

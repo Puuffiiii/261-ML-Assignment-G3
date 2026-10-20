@@ -16,3 +16,19 @@ This directory contains the Jupyter / Google Colab notebooks for the project.
   7. *PCA Exploration:* Scree plot and cumulative explained variance ratio ($k=47$ for 90%, $k=51$ for 95%).
 - **Colab Link:**  
   [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Puuffiiii/261-ML-Assignment-G3/blob/EDA-step/notebooks/01_eda_exploration.ipynb)
+
+---
+
+### 2. `02_preprocessing_pipeline.ipynb`
+- **Description:** End-to-end Tabular Preprocessing Pipeline implementing data cleaning, stratified train-test splitting (80/20), MNAR imputation, categorical encoding, scaling comparisons, and PCA dimensionality reduction.
+- **Pipeline Components:**
+  1. *Data Cleaning:* Identifier removal (`enrollee_id`) and high-cardinality redundant column pruning (`city`).
+  2. *Stratified Train-Test Split:* Strictly anti-leakage 80/20 train/test split stratified by binary `target`.
+  3. *MNAR & Imputation:* Explicit `'Unknown'` category and `MissingIndicator` flags for `company_size` and `company_type`.
+  4. *Encoding:* Ordinal integer mapping for 4 ordinal features and One-Hot Encoding for 5 nominal features.
+  5. *Scaling Comparison:* Empirical comparison between `StandardScaler` (Z-score) and `MinMaxScaler` (`feature_range=(0, 1)` and `(-1, 1)`).
+  6. *PCA Dimensionality Reduction:* Variance retention benchmarks at 90% ($k=21$) and 95% ($k=23$).
+  7. *Feature Persistence:* Auto-exports all processed feature sets (`.npy`), feature names, and metadata to `features/`.
+  8. *Integrity Checks:* Verification of shape alignments, zero NaNs, and zero Infs.
+- **Colab Link:**  
+  [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Puuffiiii/261-ML-Assignment-G3/blob/feature/preprocessing/notebooks/02_preprocessing_pipeline.ipynb)
