@@ -31,7 +31,23 @@
     "company_type_Other",
     "company_type_Public Sector",
     "company_type_Pvt Ltd",
-    "company_type_Unknown"
+    "company_type_Unknown",
+    "training_hours_log1p",
+    "city_development_index_squared",
+    "experience_x_city_development",
+    "training_hours_per_experience",
+    "career_mobility_ratio",
+    "education_x_experience",
+    "profile_missing_count"
+  ],
+  "engineered_features": [
+    "training_hours_log1p",
+    "city_development_index_squared",
+    "experience_x_city_development",
+    "training_hours_per_experience",
+    "career_mobility_ratio",
+    "education_x_experience",
+    "profile_missing_count"
   ],
   "pca90_features": [
     "PC_1",
@@ -54,7 +70,8 @@
     "PC_18",
     "PC_19",
     "PC_20",
-    "PC_21"
+    "PC_21",
+    "PC_22"
   ],
   "pca95_features": [
     "PC_1",
@@ -79,6 +96,7 @@
     "PC_20",
     "PC_21",
     "PC_22",
-    "PC_23"
+    "PC_23",
+    "PC_24"
   ]
 }

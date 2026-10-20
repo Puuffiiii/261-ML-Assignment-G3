@@ -1,12 +1,40 @@
 {
   "dataset": "aug_train.csv",
   "total_samples": 19158,
-  "train_samples": 15326,
-  "test_samples": 3832,
+  "split": {
+    "train": 13410,
+    "validation": 2874,
+    "test": 2874
+  },
+  "split_ratio": {
+    "train": 0.7,
+    "validation": 0.15,
+    "test": 0.15
+  },
+  "positive_rate": {
+    "train": 0.24929157345264727,
+    "validation": 0.24947807933194155,
+    "test": 0.24947807933194155
+  },
   "random_state": 42,
+  "dropped_columns": [
+    "enrollee_id",
+    "city"
+  ],
+  "class_weights": {
+    "0": 0.6660375484255489,
+    "1": 2.0056835177983845
+  },
   "configurations": {
-    "standard_scaled_features": 32,
-    "pca_90_components": 21,
-    "pca_95_components": 23
+    "full_features": 39,
+    "pca_90_components": 22,
+    "pca_95_components": 24,
+    "dtype": "float32"
+  },
+  "versions": {
+    "python": "3.14.7",
+    "numpy": "2.5.4",
+    "pandas": "3.0.6",
+    "scikit_learn": "1.9.1"
   }
 }

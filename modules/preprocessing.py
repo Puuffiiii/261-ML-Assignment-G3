@@ -12,7 +12,8 @@ Pipeline bao gồm:
    - One-Hot Encoding: Mã hóa danh nghĩa cho gender, relevent_experience, enrolled_university, major_discipline, company_type.
 5. Feature Scaling: Tùy biến StandardScaler hoặc MinMaxScaler (với feature_range cấu hình được).
 6. Dimensionality Reduction (PCA): Tùy biến giữ lại các mức phương sai tích lũy (90%, 95%, ...) theo yêu cầu đề bài.
-7. Feature Persistence: Lưu trữ và nạp các ma trận đặc trưng (.npy) vào thư mục features/.
+7. Feature Engineering: Tạo đặc trưng phi tuyến, tương tác và mức độ đầy đủ hồ sơ.
+8. Feature Persistence: Lưu trữ và nạp các ma trận đặc trưng (.npy) vào thư mục features/.
 """
 
 import os
@@ -72,6 +73,15 @@ NOMINAL_COLS = ['gender', 'relevent_experience', 'enrolled_university', 'major_d
 DROP_COLS = ['enrollee_id', 'city']
 TARGET_COL = 'target'
 MNAR_COLS = ['company_size', 'company_type']
+ENGINEERED_FEATURES = [
+    'training_hours_log1p',
+    'city_development_index_squared',
+    'experience_x_city_development',
+    'training_hours_per_experience',
+    'career_mobility_ratio',
+    'education_x_experience',
+    'profile_missing_count',
+]
 
 
 # ==============================================================================
@@ -92,6 +102,8 @@ class TabularPreprocessor(BaseEstimator, TransformerMixin):
         hoặc số lượng thành phần chính cố định (int), hoặc None nếu không giảm chiều.
     add_missing_indicators : bool, default=True
         Thêm cột cờ chỉ báo dữ liệu khuyết cho các thuộc tính MNAR (company_size, company_type).
+    add_engineered_features : bool, default=True
+        Tạo các đặc trưng phi tuyến/tương tác và số trường còn thiếu trong hồ sơ.
     random_state : int, default=42
         Random seed cho tính tái lập (Reproducibility).
     """
@@ -102,12 +114,14 @@ class TabularPreprocessor(BaseEstimator, TransformerMixin):
         feature_range: Tuple[float, float] = (0, 1),
         pca_variance: Optional[Union[float, int]] = None,
         add_missing_indicators: bool = True,
+        add_engineered_features: bool = True,
         random_state: int = 42
     ):
         self.scaling = scaling
         self.feature_range = feature_range
         self.pca_variance = pca_variance
         self.add_missing_indicators = add_missing_indicators
+        self.add_engineered_features = add_engineered_features
         self.random_state = random_state
 
         # State lưu lại sau khi fit
@@ -125,6 +139,16 @@ class TabularPreprocessor(BaseEstimator, TransformerMixin):
         Tuyệt đối không được fit trên Test set để chống Data Leakage.
         """
         X = X.copy()
+        self._validate_input_columns(X)
+
+        # Cho phép gọi fit nhiều lần trên cùng một đối tượng mà không giữ state cũ.
+        self.num_imputer_medians_ = {}
+        self.ord_imputer_modes_ = {}
+        self.ohe_ = None
+        self.scaler_ = None
+        self.pca_ = None
+        self.feature_names_out_ = []
+        self.raw_feature_names_ = []
 
         # 1. Học giá trị điền khuyết cho Numerical features
         for col in NUMERICAL_COLS:
@@ -179,7 +203,10 @@ class TabularPreprocessor(BaseEstimator, TransformerMixin):
         """
         Áp dụng toàn bộ quy trình biến đổi đã học lên dữ liệu X (Train hoặc Test).
         """
+        if self.ohe_ is None:
+            raise RuntimeError("TabularPreprocessor phải được fit trước khi gọi transform().")
         X = X.copy()
+        self._validate_input_columns(X)
         X_transformed_df = self._transform_without_scaling_pca(X)
 
         # Scale
@@ -206,6 +233,14 @@ class TabularPreprocessor(BaseEstimator, TransformerMixin):
             X_nom[col] = X_nom[col].fillna('Unknown').astype(str)
         return X_nom
 
+    @staticmethod
+    def _validate_input_columns(X: pd.DataFrame):
+        """Kiểm tra schema đầu vào để báo lỗi rõ ràng trước khi biến đổi."""
+        required = set(NUMERICAL_COLS + ORDINAL_COLS + NOMINAL_COLS)
+        missing = sorted(required.difference(X.columns))
+        if missing:
+            raise ValueError(f"Thiếu các cột đầu vào bắt buộc: {missing}")
+
     def _transform_without_scaling_pca(self, X: pd.DataFrame) -> pd.DataFrame:
         """Thực hiện Imputation, Ordinal Mapping, Missing Indicator và OHE tạo DataFrame thô."""
         result_dfs = []
@@ -221,9 +256,15 @@ class TabularPreprocessor(BaseEstimator, TransformerMixin):
         X_ord = pd.DataFrame(index=X.index)
         for col in ORDINAL_COLS:
             mode_val = self.ord_imputer_modes_.get(col, list(ORDINAL_MAPPINGS[col].keys())[0])
-            mapped_series = X[col].fillna(mode_val).map(ORDINAL_MAPPINGS[col])
-            # Nếu có giá trị ngoài bảng mapping thì điền theo mode
-            fallback_val = ORDINAL_MAPPINGS[col][mode_val]
+            if col == 'company_size':
+                # company_size có cơ chế khuyết MNAR: -1 là một mức Unknown riêng,
+                # đồng thời vẫn giữ cờ company_size_isna ở phần C.
+                mapped_series = X[col].map(ORDINAL_MAPPINGS[col])
+                fallback_val = -1
+            else:
+                mapped_series = X[col].fillna(mode_val).map(ORDINAL_MAPPINGS[col])
+                # Giá trị ngoài bảng mapping được đưa về mode học từ train.
+                fallback_val = ORDINAL_MAPPINGS[col][mode_val]
             X_ord[col] = mapped_series.fillna(fallback_val).astype(float)
         result_dfs.append(X_ord)
 
@@ -241,6 +282,26 @@ class TabularPreprocessor(BaseEstimator, TransformerMixin):
         ohe_col_names = self.ohe_.get_feature_names_out(NOMINAL_COLS)
         X_ohe = pd.DataFrame(nom_encoded, columns=ohe_col_names, index=X.index)
         result_dfs.append(X_ohe)
+
+        # E. Feature Engineering: chỉ dùng các cột đầu vào hoặc giá trị đã impute,
+        # tuyệt đối không sử dụng target nên an toàn với data leakage.
+        if self.add_engineered_features:
+            X_eng = pd.DataFrame(index=X.index)
+            experience = X_ord['experience']
+            education = X_ord['education_level']
+            last_job = X_ord['last_new_job']
+            cdi = X_num['city_development_index']
+            hours = X_num['training_hours'].clip(lower=0)
+
+            X_eng['training_hours_log1p'] = np.log1p(hours)
+            X_eng['city_development_index_squared'] = cdi.pow(2)
+            X_eng['experience_x_city_development'] = experience * cdi
+            X_eng['training_hours_per_experience'] = hours / (experience + 1.0)
+            X_eng['career_mobility_ratio'] = last_job / (experience + 1.0)
+            X_eng['education_x_experience'] = education * experience
+            profile_cols = NUMERICAL_COLS + ORDINAL_COLS + NOMINAL_COLS
+            X_eng['profile_missing_count'] = X[profile_cols].isna().sum(axis=1).astype(float)
+            result_dfs.append(X_eng)
 
         # Ghép toàn bộ lại thành 1 DataFrame
         return pd.concat(result_dfs, axis=1)
@@ -311,11 +372,53 @@ def split_train_test(
     return X_train, X_test, y_train, y_test
 
 
+def split_train_validation_test(
+    df: pd.DataFrame,
+    validation_size: float = 0.15,
+    test_size: float = 0.15,
+    random_state: int = 42,
+    drop_unnecessary: bool = True
+) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.Series, pd.Series, pd.Series]:
+    """
+    Tách phân tầng Train/Validation/Test theo tỷ lệ tuyệt đối trên toàn bộ dữ liệu.
+
+    Validation phục vụ chọn siêu tham số và early stopping; Test được giữ kín cho
+    đánh giá cuối cùng. Mặc định tạo tỷ lệ 70/15/15.
+    """
+    if validation_size <= 0 or test_size <= 0 or validation_size + test_size >= 1:
+        raise ValueError("validation_size và test_size phải > 0, tổng của chúng phải < 1.")
+    if TARGET_COL not in df.columns:
+        raise ValueError(f"Không tìm thấy cột mục tiêu '{TARGET_COL}' trong DataFrame.")
+
+    y = df[TARGET_COL].astype(int)
+    X = df.drop(columns=[TARGET_COL]).copy()
+    if drop_unnecessary:
+        X = X.drop(columns=[c for c in DROP_COLS if c in X.columns])
+
+    X_train_val, X_test, y_train_val, y_test = train_test_split(
+        X,
+        y,
+        test_size=test_size,
+        random_state=random_state,
+        stratify=y,
+    )
+    relative_validation_size = validation_size / (1.0 - test_size)
+    X_train, X_validation, y_train, y_validation = train_test_split(
+        X_train_val,
+        y_train_val,
+        test_size=relative_validation_size,
+        random_state=random_state,
+        stratify=y_train_val,
+    )
+    return X_train, X_validation, X_test, y_train, y_validation, y_test
+
+
 def save_processed_features(
     output_dir: str,
     feature_sets: Dict[str, np.ndarray],
     y_train: np.ndarray,
     y_test: np.ndarray,
+    y_validation: Optional[np.ndarray] = None,
     feature_names_dict: Optional[Dict[str, List[str]]] = None,
     metadata: Optional[Dict] = None
 ):
@@ -328,6 +431,8 @@ def save_processed_features(
     # Lưu biến mục tiêu
     np.save(os.path.join(output_dir, "y_train.npy"), y_train)
     np.save(os.path.join(output_dir, "y_test.npy"), y_test)
+    if y_validation is not None:
+        np.save(os.path.join(output_dir, "y_validation.npy"), y_validation)
 
     # Lưu từng tập đặc trưng
     for name, arr in feature_sets.items():
