@@ -1,0 +1,231 @@
+@page {
+  size: A4;
+  margin: 20mm 19mm 20mm 24mm;
+}
+
+@page landscape-page {
+  size: A4 landscape;
+  margin: 16mm;
+}
+
+:root {
+  color: #172238;
+  font-family: "Noto Serif", "Times New Roman", serif;
+  font-size: 10.5pt;
+  line-height: 1.48;
+}
+
+body {
+  max-width: none;
+  margin: 0;
+  color: #172238;
+  background: white;
+  text-align: justify;
+  hyphens: auto;
+}
+
+#title-block-header {
+  display: none;
+}
+
+.titlepage {
+  min-height: 245mm;
+  page-break-after: always;
+  break-after: page;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.titlepage .center {
+  width: 100%;
+  text-align: center;
+}
+
+.titlepage p:nth-of-type(6) {
+  color: #17365d;
+  font-size: 23pt;
+  line-height: 1.2;
+  margin: 18mm 0 4mm;
+}
+
+.titlepage p:nth-of-type(7) {
+  color: #005bac;
+  font-size: 14pt;
+  margin-bottom: 12mm;
+}
+
+.titlepage table {
+  width: 88%;
+  margin: 7mm auto;
+}
+
+h1 {
+  color: #17365d;
+  font-family: "Noto Sans", Arial, sans-serif;
+  font-size: 21pt;
+  line-height: 1.2;
+  border-bottom: 2px solid #005bac;
+  padding-bottom: 2mm;
+  margin: 0 0 8mm;
+  page-break-before: always;
+  break-before: page;
+}
+
+.titlepage + h1 {
+  page-break-before: auto;
+  break-before: auto;
+}
+
+h2 {
+  color: #17365d;
+  font-family: "Noto Sans", Arial, sans-serif;
+  font-size: 15pt;
+  margin-top: 7mm;
+  margin-bottom: 3mm;
+}
+
+h3 {
+  color: #005bac;
+  font-family: "Noto Sans", Arial, sans-serif;
+  font-size: 12pt;
+  margin-top: 5mm;
+  margin-bottom: 2mm;
+}
+
+p {
+  margin: 0 0 2.8mm;
+  orphans: 3;
+  widows: 3;
+}
+
+a {
+  color: #005bac;
+  text-decoration: none;
+}
+
+ul, ol {
+  margin-top: 2mm;
+  margin-bottom: 3mm;
+  padding-left: 7mm;
+}
+
+li {
+  margin-bottom: 1.2mm;
+}
+
+table {
+  width: 100%;
+  margin: 4mm auto 6mm;
+  border-collapse: collapse;
+  font-size: 8.5pt;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+th {
+  background: #17365d;
+  color: white;
+  font-family: "Noto Sans", Arial, sans-serif;
+  font-weight: 600;
+}
+
+th, td {
+  border: 0.35pt solid #a9b7c6;
+  padding: 1.6mm 1.8mm;
+  vertical-align: top;
+}
+
+tbody tr:nth-child(even) {
+  background: #f4f8fb;
+}
+
+caption, figcaption {
+  color: #34495e;
+  font-size: 9pt;
+  font-style: italic;
+  text-align: center;
+  margin: 2mm auto 4mm;
+}
+
+figure {
+  margin: 5mm auto 7mm;
+  text-align: center;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+figure img {
+  max-width: 100%;
+  max-height: 180mm;
+  object-fit: contain;
+}
+
+.subfigure {
+  display: inline-block;
+  vertical-align: top;
+}
+
+pre {
+  background: #f5f7fa;
+  border: 1px solid #d8e1ea;
+  border-radius: 4px;
+  padding: 3mm;
+  font-family: "JetBrains Mono", "DejaVu Sans Mono", monospace;
+  font-size: 8pt;
+  white-space: pre-wrap;
+  page-break-inside: avoid;
+}
+
+code {
+  font-family: "JetBrains Mono", "DejaVu Sans Mono", monospace;
+  font-size: 0.88em;
+  background: #f2f5f8;
+  padding: 0 0.6mm;
+}
+
+.math.display {
+  display: block;
+  text-align: center;
+  margin: 4mm 0;
+  font-family: "Noto Serif", "Times New Roman", serif;
+}
+
+span[style*="placeholderbg"] {
+  background: #fff0f0 !important;
+  padding: 0.4mm 1mm;
+  border-radius: 2px;
+}
+
+span[style*="placeholderred"] {
+  color: #a61b1b !important;
+}
+
+.landscape {
+  page: landscape-page;
+  page-break-before: always;
+  page-break-after: always;
+}
+
+#TOC {
+  page-break-before: always;
+  break-before: page;
+  page-break-after: always;
+  break-after: page;
+}
+
+#TOC ul {
+  list-style: none;
+  padding-left: 4mm;
+}
+
+#TOC > ul {
+  padding-left: 0;
+}
+
+@media print {
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}

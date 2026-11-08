@@ -46,3 +46,29 @@ X_test = preprocessor.transform(X_test_raw)
 ```
 
 Luôn `fit` trên train; chỉ gọi `transform` cho validation, test và dữ liệu suy luận.
+
+## `modeling.py`
+
+Module huấn luyện và đánh giá hai thuật toán truyền thống:
+
+- đọc/kiểm tra `configs/model_experiments.json`;
+- chạy toàn bộ ứng viên Logistic Regression và Random Forest trên validation;
+- tính Accuracy, Balanced Accuracy, Precision, Recall, Specificity, F1, ROC-AUC và PR-AUC;
+- chọn threshold tối đa hóa F1 chỉ trên validation;
+- chọn cấu hình theo PR-AUC, refit train+validation và đánh giá test đúng một lần;
+- xuất coefficient/feature importance, ROC/PR curve và confusion matrix;
+- lưu bundle gồm model + preprocessor + threshold;
+- `predict_from_raw_dataframe` để suy luận trực tiếp từ schema dữ liệu thô.
+
+## `deep_learning.py`
+
+Pipeline PyTorch cho hai thuật toán deep learning trên dữ liệu bảng:
+
+- `DeepTabularPreprocessor`: vocabulary học trên train, unknown/missing IDs và chuẩn hóa 13 numerical/engineered features;
+- `TabularResNet`: baseline residual MLP với categorical embeddings, BatchNorm, skip connection và dropout;
+- `TabM`: ensemble hiệu quả tham số gồm nhiều member nội bộ dùng chung trọng số, khác nhau qua rank-one BatchEnsemble adapters;
+- AdamW, cosine schedule, gradient clipping, deterministic seed và early stopping bằng validation PR-AUC;
+- chạy ba cấu hình cho mỗi thuật toán, chọn riêng ResNet và TabM tốt nhất chỉ bằng validation;
+- khóa threshold tối đa hóa validation F1 rồi đánh giá mỗi mô hình trên test đúng một lần;
+- lưu/nạp portable `state_dict`, preprocessor dùng chung và suy luận trực tiếp từ raw DataFrame;
+- xuất learning curves, ROC/PR, confusion matrix và bảng so sánh chung.

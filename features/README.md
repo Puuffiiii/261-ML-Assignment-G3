@@ -51,3 +51,7 @@ X_train = arrays["X_train_std"]
 - `minmax`: neural network hoặc thuật toán yêu cầu đầu vào `[0, 1]`.
 - `pca90`/`pca95`: thử nghiệm giảm chiều cho mô hình tuyến tính/SVM.
 - Validation dùng cho tuning và early stopping; test chỉ dùng một lần để báo cáo cuối.
+
+## Deep Learning
+
+ResNet và TabM không đọc các ma trận one-hot/PCA trong thư mục này. Cả hai dùng cùng `split_indices.npz`, nhưng fit `DeepTabularPreprocessor` trực tiếp trên raw train để tạo categorical IDs và 13 numerical/engineered features. Artefact dùng chung được lưu tại `models/deep_tabular_preprocessor.joblib`; cách này bảo toàn categorical embeddings và vẫn chống leakage.

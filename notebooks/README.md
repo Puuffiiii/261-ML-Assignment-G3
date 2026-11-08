@@ -13,11 +13,17 @@ Notebook hợp nhất và là điểm chạy được khuyến nghị. Nội dun
 5. tạo 7 đặc trưng mới;
 6. StandardScaler, MinMaxScaler và PCA 90%/95%;
 7. tính class weight, xuất artefact và kiểm tra NaN/Inf;
-8. smoke test Logistic Regression và MLP trên validation.
+8. thử 24 cấu hình Logistic Regression/Random Forest trên validation;
+9. khóa siêu tham số và threshold, refit train+validation, đánh giá test;
+10. lưu biểu đồ, bảng kết quả và hai bundle suy luận từ dữ liệu thô;
+11. fit preprocessing deep learning riêng trên train;
+12. tuning ba cấu hình ResNet và ba cấu hình TabM, chọn winner/threshold trên validation;
+13. đánh giá hai deep models đã khóa trên test và so sánh với hai traditional models;
+14. lưu từng checkpoint `state_dict`, preprocessor dùng chung và kiểm tra raw-row inference.
 
-[![Mở bằng Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Puuffiiii/261-ML-Assignment-G3/blob/feature/preprocessing/notebooks/ML_Tabular_Final.ipynb)
+[![Mở bằng Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Puuffiiii/261-ML-Assignment-G3/blob/main/notebooks/ML_Tabular_Final.ipynb)
 
-Notebook đã được chạy toàn bộ thành công. Các kết quả chính: 13.410 dòng train, 2.874 dòng validation, 2.874 dòng test; 39 đặc trưng đầy đủ; PCA 90% còn 22 chiều và PCA 95% còn 24 chiều.
+Notebook 42 cell đã được chạy toàn bộ thành công. Các kết quả chính: 13.410 dòng train, 2.874 dòng validation, 2.874 dòng test; 39 đặc trưng truyền thống; PCA 90% còn 22 chiều và PCA 95% còn 24 chiều. ResNet đạt test PR-AUC 0,5657 và F1 0,6438; TabM đạt 0,5576 và 0,6427. Cả hai đều cao hơn Random Forest theo hai metric chính này.
 
 ## Notebook lịch sử
 

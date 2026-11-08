@@ -1,0 +1,55 @@
+{
+  "models": {
+    "random_forest": {
+      "artifact": "random_forest.joblib",
+      "representation": "std",
+      "threshold": 0.6147601276340152,
+      "parameters": {
+        "n_estimators": 250,
+        "max_depth": 8,
+        "min_samples_leaf": 2,
+        "max_features": "sqrt",
+        "class_weight": "balanced"
+      },
+      "test_metrics": {
+        "threshold": 0.6147601276340152,
+        "accuracy": 0.7947112038970077,
+        "balanced_accuracy": 0.7724543812788178,
+        "precision": 0.569247546346783,
+        "recall": 0.7280334728033473,
+        "specificity": 0.8168752897542884,
+        "f1": 0.6389228886168911,
+        "roc_auc": 0.8119689454528056,
+        "pr_auc": 0.5414394862526091,
+        "tn": 1762,
+        "fp": 395,
+        "fn": 195,
+        "tp": 522
+      }
+    },
+    "logistic_regression": {
+      "artifact": "logistic_regression.joblib",
+      "representation": "std",
+      "threshold": 0.518247032399069,
+      "parameters": {
+        "C": 10.0,
+        "class_weight": "balanced"
+      },
+      "test_metrics": {
+        "threshold": 0.518247032399069,
+        "accuracy": 0.7609603340292276,
+        "balanced_accuracy": 0.7644013943121839,
+        "precision": 0.5139405204460966,
+        "recall": 0.7712691771269177,
+        "specificity": 0.7575336114974501,
+        "f1": 0.6168432794199665,
+        "roc_auc": 0.7963469460463773,
+        "pr_auc": 0.528811569369924,
+        "tn": 1634,
+        "fp": 523,
+        "fn": 164,
+        "tp": 553
+      }
+    }
+  }
+}

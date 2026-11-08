@@ -1,0 +1,121 @@
+{
+  "random_state": 42,
+  "selection_metric": "validation_pr_auc",
+  "models": {
+    "resnet": {
+      "role": "deep_learning_baseline",
+      "candidates": [
+        {
+          "seed": 42,
+          "embedding_dim": 8,
+          "embedding_dropout": 0.05,
+          "d_block": 128,
+          "n_blocks": 2,
+          "d_hidden_multiplier": 2.0,
+          "dropout": 0.15,
+          "residual_dropout": 0.05,
+          "learning_rate": 0.001,
+          "weight_decay": 0.00001,
+          "pos_weight": 1.0,
+          "batch_size": 512,
+          "max_epochs": 100,
+          "patience": 15,
+          "gradient_clip": 1.0
+        },
+        {
+          "seed": 42,
+          "embedding_dim": 12,
+          "embedding_dropout": 0.10,
+          "d_block": 192,
+          "n_blocks": 3,
+          "d_hidden_multiplier": 2.0,
+          "dropout": 0.20,
+          "residual_dropout": 0.05,
+          "learning_rate": 0.0007,
+          "weight_decay": 0.0001,
+          "pos_weight": 1.0,
+          "batch_size": 512,
+          "max_epochs": 120,
+          "patience": 18,
+          "gradient_clip": 1.0
+        },
+        {
+          "seed": 123,
+          "embedding_dim": 16,
+          "embedding_dropout": 0.10,
+          "d_block": 256,
+          "n_blocks": 3,
+          "d_hidden_multiplier": 2.0,
+          "dropout": 0.25,
+          "residual_dropout": 0.10,
+          "learning_rate": 0.0005,
+          "weight_decay": 0.0003,
+          "pos_weight": 1.0,
+          "batch_size": 512,
+          "max_epochs": 120,
+          "patience": 18,
+          "gradient_clip": 1.0
+        }
+      ]
+    },
+    "tabm": {
+      "role": "primary_deep_learning_model",
+      "candidates": [
+        {
+          "seed": 42,
+          "embedding_dim": 8,
+          "embedding_dropout": 0.05,
+          "member_count": 8,
+          "d_block": 128,
+          "n_blocks": 2,
+          "d_hidden_multiplier": 2.0,
+          "dropout": 0.10,
+          "residual_dropout": 0.05,
+          "learning_rate": 0.002,
+          "weight_decay": 0.0003,
+          "pos_weight": 1.0,
+          "batch_size": 512,
+          "max_epochs": 100,
+          "patience": 15,
+          "gradient_clip": 1.0
+        },
+        {
+          "seed": 42,
+          "embedding_dim": 12,
+          "embedding_dropout": 0.10,
+          "member_count": 16,
+          "d_block": 128,
+          "n_blocks": 2,
+          "d_hidden_multiplier": 2.0,
+          "dropout": 0.15,
+          "residual_dropout": 0.05,
+          "learning_rate": 0.0015,
+          "weight_decay": 0.0003,
+          "pos_weight": 1.0,
+          "batch_size": 512,
+          "max_epochs": 110,
+          "patience": 16,
+          "gradient_clip": 1.0
+        },
+        {
+          "seed": 123,
+          "embedding_dim": 12,
+          "embedding_dropout": 0.10,
+          "member_count": 8,
+          "d_block": 192,
+          "n_blocks": 3,
+          "d_hidden_multiplier": 2.0,
+          "dropout": 0.20,
+          "residual_dropout": 0.05,
+          "learning_rate": 0.001,
+          "weight_decay": 0.0001,
+          "pos_weight": 1.0,
+          "batch_size": 512,
+          "max_epochs": 120,
+          "patience": 18,
+          "gradient_clip": 1.0
+        }
+      ]
+    }
+  }
+}

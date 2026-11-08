@@ -78,6 +78,17 @@ target/
 # Jupyter Notebook
 .ipynb_checkpoints
 
+# LaTeX build intermediates (keep source and final PDF)
+*.aux
+*.fdb_latexmk
+*.fls
+*.lof
+*.lot
+*.out
+*.synctex.gz
+*.toc
+/reports/report_vi.html
+
 # IPython
 profile_default/
 ipython_config.py
