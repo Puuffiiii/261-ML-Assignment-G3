@@ -6,7 +6,7 @@
 
 [![Mở bằng Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Puuffiiii/261-ML-Assignment-G3/blob/main/notebooks/ML_Tabular_Final.ipynb)
 
-Notebook chính đã được lưu với **42/42 cell chạy thành công, không có output lỗi**. Báo cáo tiếng Việt hiện hành: [`reports/report_vi.pdf`](reports/report_vi.pdf).
+Notebook chính đã được lưu với **42/42 cell chạy thành công, không có output lỗi**. Báo cáo tiếng Việt hiện hành: [`reports/G3-Report.pdf`](reports/G3-Report.pdf).
 
 ## Thông tin học phần và nhóm
 
@@ -18,12 +18,12 @@ Notebook chính đã được lưu với **42/42 cell chạy thành công, khôn
 - Giảng viên hướng dẫn: **TS. Trương Vĩnh Lân**
 - Nhóm: **3**
 
-| STT | Thành viên | MSSV | Phụ trách chính |
-|---:|---|---:|---|
-| 1 | Phạm Hoàng Minh Hiếu | 2352740 | Tiền xử lý; lựa chọn, huấn luyện và tinh chỉnh Logistic Regression; phân tích báo cáo |
-| 2 | Lê Duy Nhật Minh | 2352333 | Thiết lập Colab, tải dữ liệu, EDA; huấn luyện, tinh chỉnh và đánh giá Random Forest |
-| 3 | Nguyễn Ngô Huy | 2153384 | Trích xuất/lựa chọn đặc trưng; phối hợp xây dựng và tinh chỉnh ResNet, TabM |
-| 4 | Nguyễn Nhật Thành | 2353102 | Tích hợp notebook và thí nghiệm; phối hợp pipeline học sâu; hoàn thiện Colab Run All |
+| STT | Thành viên | MSSV | Email | Phụ trách chính |
+|---:|---|---:|---|---|
+| 1 | Phạm Hoàng Minh Hiếu | 2352740 | hieu.pham22@hcmut.edu.vn | Tiền xử lý; lựa chọn, huấn luyện và tinh chỉnh Logistic Regression; phân tích báo cáo |
+| 2 | Lê Duy Nhật Minh | 2352333 | minh.leduy@hcmut.edu.vn | Thiết lập Colab, tải dữ liệu, EDA; huấn luyện, tinh chỉnh và đánh giá Random Forest |
+| 3 | Nguyễn Ngô Huy | 2153384 | huy.nguyenngo13@hcmut.edu.vn | Trích xuất/lựa chọn đặc trưng; phối hợp xây dựng và tinh chỉnh ResNet, TabM |
+| 4 | Nguyễn Nhật Thành | 2353102 | thanh.nguyen2353102@hcmut.edu.vn | Tích hợp notebook và thí nghiệm; phối hợp pipeline học sâu; hoàn thiện Colab Run All |
 
 Tỷ lệ đóng góp cá nhân không được suy ra từ điểm sprint vì báo cáo chưa cung cấp tỷ lệ đã được cả nhóm xác nhận. Xem mục [Thông tin cần xác nhận trước khi nộp](#thông-tin-cần-xác-nhận-trước-khi-nộp).
 
@@ -197,7 +197,7 @@ Hướng tiếp theo: external validation theo thời gian/đơn vị, nested CV
 ├── notebooks/
 │   └── ML_Tabular_Final.ipynb     # Colab front-end chính
 ├── reports/
-│   └── report_vi.pdf              # Báo cáo PDF hiện hành
+│   └── G3-Report.pdf              # Báo cáo PDF hiện hành
 ├── .gitignore                     # Allowlist đúng phạm vi bài nộp
 ├── requirements.txt
 └── README.md
@@ -268,7 +268,7 @@ Tổng điểm đầu việc ghi nhận trên bảng sprint là 57; đây không
 
 - Notebook Colab: [![Mở bằng Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Puuffiiii/261-ML-Assignment-G3/blob/main/notebooks/ML_Tabular_Final.ipynb)
 - GitHub: [Puuffiiii/261-ML-Assignment-G3](https://github.com/Puuffiiii/261-ML-Assignment-G3)
-- Báo cáo tiếng Việt hiện hành, 40 trang: [`reports/report_vi.pdf`](reports/report_vi.pdf)
+- Báo cáo tiếng Việt hiện hành, 38 trang: [`reports/G3-Report.pdf`](reports/G3-Report.pdf)
 
 Chỉ bản PDF hiện hành được commit; nguồn LaTeX, mã sinh báo cáo, bản PDF cũ và file trung gian đã được loại khỏi phạm vi nộp bằng `.gitignore`.
 
@@ -277,7 +277,6 @@ Chỉ bản PDF hiện hành được commit; nguồn LaTeX, mã sinh báo cáo,
 Các mục sau không có dữ liệu xác thực đầy đủ trong báo cáo, vì vậy README không tự suy diễn:
 
 - tỷ lệ đóng góp được cả bốn thành viên thống nhất;
-- email của từng thành viên theo yêu cầu README trong đề bài;
 - tên người phụ trách đầu việc “Kiểm toán mô hình và đánh giá cuối” ở Sprint 5 và người phối hợp gói sản phẩm nộp bài;
 - minh chứng GVHD chấp thuận nhóm bốn thành viên và xác nhận dataset không trùng nhóm khác;
 - đối chiếu lại trường `DAYS` của Sprint 4–5 với khoảng ngày thực tế;

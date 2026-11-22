@@ -47,7 +47,7 @@
 # CSV/figures, and previous report builds remain local and are not committed.
 !/reports/
 /reports/*
-!/reports/report_vi.pdf
+!/reports/G3-Report.pdf
 
 # Local caches and editor/environment state (also applies inside allowed dirs)
 **/__pycache__/
