@@ -244,7 +244,7 @@ print(predictions)
 
 Hàm dùng đúng vocabulary/normalization học từ train và threshold đã khóa trên validation. Với TabM, xác suất là trung bình của 8 member nội bộ. Các file trong `models/` được tạo sau khi chạy notebook và không cần commit.
 
-## Tái lập và artefact
+## Tái lập và artifact
 
 - Seed chia dữ liệu: `42`; các feature/label array `.npy` cần nộp nằm trong [`features/`](features/).
 - Không gian thí nghiệm nằm trong `configs/model_experiments.json` và `configs/deep_learning_experiments.json`.
@@ -270,14 +270,3 @@ Tổng điểm đầu việc ghi nhận trên bảng sprint là 57; đây không
 - GitHub: [Puuffiiii/261-ML-Assignment-G3](https://github.com/Puuffiiii/261-ML-Assignment-G3)
 - Báo cáo tiếng Việt hiện hành, 38 trang: [`reports/G3-Report.pdf`](reports/G3-Report.pdf)
 
-Chỉ bản PDF hiện hành được commit; nguồn LaTeX, mã sinh báo cáo, bản PDF cũ và file trung gian đã được loại khỏi phạm vi nộp bằng `.gitignore`.
-
-## Thông tin cần xác nhận trước khi nộp
-
-Các mục sau không có dữ liệu xác thực đầy đủ trong báo cáo, vì vậy README không tự suy diễn:
-
-- tỷ lệ đóng góp được cả bốn thành viên thống nhất;
-- tên người phụ trách đầu việc “Kiểm toán mô hình và đánh giá cuối” ở Sprint 5 và người phối hợp gói sản phẩm nộp bài;
-- minh chứng GVHD chấp thuận nhóm bốn thành viên và xác nhận dataset không trùng nhóm khác;
-- đối chiếu lại trường `DAYS` của Sprint 4–5 với khoảng ngày thực tế;
-- chạy lại **Runtime → Run all** trên Colab sạch, lưu log, phát hành tag submission bất biến và thay các URL `main` bằng tag đó.
