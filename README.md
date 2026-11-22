@@ -266,7 +266,7 @@ Tổng điểm đầu việc ghi nhận trên bảng sprint là 57; đây không
 
 ## Báo cáo và liên kết
 
-- Notebook Colab: dùng badge ở đầu README.
+- Notebook Colab: [![Mở bằng Google Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Puuffiiii/261-ML-Assignment-G3/blob/main/notebooks/ML_Tabular_Final.ipynb)
 - GitHub: [Puuffiiii/261-ML-Assignment-G3](https://github.com/Puuffiiii/261-ML-Assignment-G3)
 - Báo cáo tiếng Việt hiện hành, 40 trang: [`reports/report_vi.pdf`](reports/report_vi.pdf)
 
