@@ -20,8 +20,8 @@ Notebook chính đã được lưu với **42/42 cell chạy thành công, khôn
 
 | STT | Thành viên | MSSV | Email | Phụ trách chính |
 |---:|---|---:|---|---|
-| 1 | Phạm Hoàng Minh Hiếu | 2352740 | hieu.pham22@hcmut.edu.vn | Tiền xử lý; lựa chọn, huấn luyện và tinh chỉnh Logistic Regression; phân tích báo cáo |
-| 2 | Lê Duy Nhật Minh | 2352333 | minh.leduy@hcmut.edu.vn | Thiết lập Colab, tải dữ liệu, EDA; huấn luyện, tinh chỉnh và đánh giá Random Forest |
+| 1 | Phạm Hoàng Minh Hiếu | 2352333 | hieu.pham22@hcmut.edu.vn | Tiền xử lý; lựa chọn, huấn luyện và tinh chỉnh Logistic Regression; phân tích báo cáo |
+| 2 | Lê Duy Nhật Minh | 2352740 | minh.leduy@hcmut.edu.vn | Thiết lập Colab, tải dữ liệu, EDA; huấn luyện, tinh chỉnh và đánh giá Random Forest |
 | 3 | Nguyễn Ngô Huy | 2153384 | huy.nguyenngo13@hcmut.edu.vn | Trích xuất/lựa chọn đặc trưng; phối hợp xây dựng và tinh chỉnh ResNet, TabM |
 | 4 | Nguyễn Nhật Thành | 2353102 | thanh.nguyen2353102@hcmut.edu.vn | Tích hợp notebook và thí nghiệm; phối hợp pipeline học sâu; hoàn thiện Colab Run All |
 
