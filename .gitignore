@@ -37,6 +37,13 @@
 !/modules/preprocessing.py
 !/modules/modeling.py
 !/modules/deep_learning.py
+!/modules/audit.py
+
+# Audit entry point imported by the final notebook
+!/scripts/
+/scripts/*
+!/scripts/__init__.py
+!/scripts/generate_audits.py
 
 # The single Colab front-end required for submission
 !/notebooks/
